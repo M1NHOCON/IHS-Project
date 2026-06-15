@@ -1,0 +1,12 @@
+# Ignorar lixo de compilação do Quartus
+db/
+incremental_db/
+greybox_tmp/
+output_files/
+*.rpt
+*.summary
+*.done
+*.smsg
+*.jdi
+*.pin
+*.qws
