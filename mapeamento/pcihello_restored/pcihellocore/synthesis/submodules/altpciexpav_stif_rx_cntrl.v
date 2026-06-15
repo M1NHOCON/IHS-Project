@@ -1,4 +1,4 @@
-// (C) 2001-2022 Intel Corporation. All rights reserved.
+// (C) 2001-2017 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -202,7 +202,7 @@ wire  chk_hdr_rise;
 wire wrena;
 wire cplena;
 
-wire [63:0] avl_translated_addr;
+wire [31:0] avl_translated_addr;
 wire [63:0] avl_addr;
 wire [4:0] cpl_tag;
 wire [9:0] current_wr_pntr;
@@ -685,12 +685,20 @@ altpciexpav_stif_p2a_addrtrans
       .cb_p2a_avalon_addr_b4_i(cb_p2a_avalon_addr_b4_i),
       .cb_p2a_avalon_addr_b5_i(cb_p2a_avalon_addr_b5_i),
       .cb_p2a_avalon_addr_b6_i(cb_p2a_avalon_addr_b6_i),
-      .PCIeAddr_i(rx_addr[63:0]),   
+      .PCIeAddr_i(rx_addr[31:0]),   
       .BarHit_i(bar_hit),    
-      .AvlAddr_o(avl_translated_addr[63:0])      
+      .AvlAddr_o(avl_translated_addr[31:0])      
 );                          
-
-    assign avl_addr = avl_translated_addr;
+generate if (AVALON_ADDR_WIDTH == 32)
+  begin
+    assign avl_addr = {32'h0, avl_translated_addr};
+  end
+else
+  begin
+  	 assign avl_addr = rx_addr[63:0];
+  end
+endgenerate
+    
 
 always @(posedge AvlClk_i or negedge Rstn_i) 
   begin
@@ -757,8 +765,7 @@ assign is_read_bar_changed = ((previous_bar_read[0] ^ bar_hit[0]) & bar_hit[0])|
                              ((previous_bar_read[5] ^ bar_hit[5]) & bar_hit[5]) ;
   
 // Avalon master Read/Write port interface
-
-generate if(CB_PCIE_RX_LITE == 0)
+generate if(CB_PCIE_RX_LITE == 0 && AVALON_ADDR_WIDTH == 64)  /// no address translation
   begin
     assign RxmWrite_0_o = wrena & bar_hit_reg[0];
     assign RxmRead_0_o = rdena & bar_hit_reg[0];
@@ -796,7 +803,50 @@ generate if(CB_PCIE_RX_LITE == 0)
     assign RxmWriteData_5_o = input_fifo_dataout[63:0];
     assign RxmBurstCount_5_o = qw_length[6:0];  
 end
-else
+endgenerate
+
+generate if(CB_PCIE_RX_LITE == 0 && AVALON_ADDR_WIDTH == 32) /// use address translation
+  begin
+    assign RxmWrite_0_o = wrena & bar_hit_reg[0];
+    assign RxmRead_0_o = rdena & bar_hit_reg[0];
+    assign RxmAddress_0_o = {avl_addr_reg[31:3], 3'h0};
+    assign RxmWriteData_0_o = input_fifo_dataout[63:0];
+    assign RxmBurstCount_0_o = qw_length[6:0]; 
+    
+    assign RxmWrite_1_o = wrena & bar_hit_reg[1];
+    assign RxmRead_1_o = rdena & bar_hit_reg[1];
+    assign RxmAddress_1_o = {avl_addr_reg[AVALON_ADDR_WIDTH-1:3], 3'h0};
+    assign RxmWriteData_1_o = input_fifo_dataout[63:0];
+    assign RxmBurstCount_1_o = qw_length[6:0];     
+   
+    assign RxmWrite_2_o = wrena & bar_hit_reg[2];
+    assign RxmRead_2_o = rdena & bar_hit_reg[2];
+    assign RxmAddress_2_o = {avl_addr_reg[AVALON_ADDR_WIDTH-1:3], 3'h0};
+    assign RxmWriteData_2_o = input_fifo_dataout[63:0];
+    assign RxmBurstCount_2_o = qw_length[6:0];     
+    
+    assign RxmWrite_3_o = wrena & bar_hit_reg[3];
+    assign RxmRead_3_o = rdena & bar_hit_reg[3];
+    assign RxmAddress_3_o = {avl_addr_reg[AVALON_ADDR_WIDTH-1:3], 3'h0};
+    assign RxmWriteData_3_o = input_fifo_dataout[63:0];
+    assign RxmBurstCount_3_o = qw_length[6:0];     
+    
+    assign RxmWrite_4_o = wrena & bar_hit_reg[4];
+    assign RxmRead_4_o = rdena & bar_hit_reg[4];
+    assign RxmAddress_4_o = {avl_addr_reg[AVALON_ADDR_WIDTH-1:3], 3'h0};
+    assign RxmWriteData_4_o = input_fifo_dataout[63:0];
+    assign RxmBurstCount_4_o = qw_length[6:0];     
+ 
+    assign RxmWrite_5_o = wrena & bar_hit_reg[5];
+    assign RxmRead_5_o = rdena & bar_hit_reg[5];
+    assign RxmAddress_5_o = {avl_addr_reg[AVALON_ADDR_WIDTH-1:3], 3'h0};
+    assign RxmWriteData_5_o = input_fifo_dataout[63:0];
+    assign RxmBurstCount_5_o = qw_length[6:0];  
+ end
+endgenerate
+
+
+generate if(CB_PCIE_RX_LITE == 1)
  begin
  	  assign RxmWrite_0_o = wrena & bar_hit_reg[0];
     assign RxmRead_0_o = rdena & bar_hit_reg[0];
@@ -833,7 +883,6 @@ else
     assign RxmAddress_5_o = {avl_addr_reg[AVALON_ADDR_WIDTH-1:2], 2'h0};
     assign RxmWriteData_5_o =  odd_address? input_fifo_dataout[63:32] : input_fifo_dataout[31:0];
     assign RxmBurstCount_5_o = qw_length[6:0];  
- 	
  end
 endgenerate
     

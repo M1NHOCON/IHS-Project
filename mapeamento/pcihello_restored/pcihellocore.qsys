@@ -9,6 +9,83 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element fan_control
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element fan_control.s1
+   {
+      datum baseAddress
+      {
+         value = "49440";
+         type = "String";
+      }
+   }
+   element green_leds
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
+      }
+   }
+   element green_leds.s1
+   {
+      datum baseAddress
+      {
+         value = "49408";
+         type = "String";
+      }
+   }
+   element hex_display
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element hex_display2
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element hex_display2.s1
+   {
+      datum baseAddress
+      {
+         value = "49248";
+         type = "String";
+      }
+   }
+   element hex_display3
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element hex_display3.s1
+   {
+      datum _lockedAddress
+      {
+         value = "0";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "49280";
+         type = "String";
+      }
+   }
    element hexport
    {
       datum _sortIndex
@@ -70,12 +147,52 @@
          type = "String";
       }
    }
-   element pio_0
+   element push_buttons
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "7";
          type = "int";
+      }
+   }
+   element push_buttons.s1
+   {
+      datum baseAddress
+      {
+         value = "49344";
+         type = "String";
+      }
+   }
+   element red_leds
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element red_leds.s1
+   {
+      datum baseAddress
+      {
+         value = "49376";
+         type = "String";
+      }
+   }
+   element switches
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element switches.s1
+   {
+      datum baseAddress
+      {
+         value = "49312";
+         type = "String";
       }
    }
 }
@@ -99,6 +216,31 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
+ <interface
+   name="fan_control_external_connection"
+   internal="fan_control.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="green_leds_external_connection"
+   internal="green_leds.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="hex_display2_external_connection"
+   internal="hex_display2.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="hex_display3_external_connection"
+   internal="hex_display3.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="hex_display_external_connection"
+   internal="hex_display.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="hexport_external_connection"
    internal="hexport.external_connection"
@@ -135,11 +277,25 @@
    type="conduit"
    dir="end" />
  <interface
-   name="pio_0_external_connection"
-   internal="pio_0.external_connection"
+   name="push_buttons_external_connection"
+   internal="push_buttons.external_connection"
    type="conduit"
    dir="end" />
- <module name="hexport" kind="altera_avalon_pio" version="21.1" enabled="1">
+ <interface
+   name="red_leds_external_connection"
+   internal="red_leds.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="switches_external_connection"
+   internal="switches.external_connection"
+   type="conduit"
+   dir="end" />
+ <module
+   name="fan_control"
+   kind="altera_avalon_pio"
+   version="17.1"
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -153,7 +309,89 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="32" />
  </module>
- <module name="inport" kind="altera_avalon_pio" version="21.1" enabled="1">
+ <module name="green_leds" kind="altera_avalon_pio" version="17.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="62500000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module
+   name="hex_display"
+   kind="altera_avalon_pio"
+   version="17.1"
+   enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="62500000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="1077952576" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module
+   name="hex_display2"
+   kind="altera_avalon_pio"
+   version="17.1"
+   enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="62500000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module
+   name="hex_display3"
+   kind="altera_avalon_pio"
+   version="17.1"
+   enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="62500000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="hexport" kind="altera_avalon_pio" version="17.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="62500000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="inport" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -170,7 +408,7 @@
  <module
    name="pcie_hard_ip_0"
    kind="altera_pcie_hard_ip"
-   version="21.1"
+   version="17.1"
    enabled="1">
   <parameter name="AST_LITE" value="0" />
   <parameter name="AUTO_CAL_BLK_CLK_CLOCK_DOMAIN" value="1" />
@@ -292,7 +530,39 @@
   <parameter name="use_crc_forwarding" value="false" />
   <parameter name="vendor_id" value="4466" />
  </module>
- <module name="pio_0" kind="altera_avalon_pio" version="21.1" enabled="1">
+ <module
+   name="push_buttons"
+   kind="altera_avalon_pio"
+   version="17.1"
+   enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="62500000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="red_leds" kind="altera_avalon_pio" version="17.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="62500000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="switches" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -308,7 +578,7 @@
  </module>
  <connection
    kind="avalon"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.bar0"
    end="pcie_hard_ip_0.cra">
   <parameter name="arbitrationPriority" value="1" />
@@ -317,7 +587,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.bar0"
    end="inport.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -326,7 +596,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.bar0"
    end="hexport.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -335,16 +605,79 @@
  </connection>
  <connection
    kind="avalon"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.bar0"
-   end="pio_0.s1">
+   end="hex_display.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0xd000" />
+  <parameter name="baseAddress" value="0xc040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
-   version="21.1"
+   version="17.1"
+   start="pcie_hard_ip_0.bar0"
+   end="hex_display2.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xc060" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="pcie_hard_ip_0.bar0"
+   end="hex_display3.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xc080" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="pcie_hard_ip_0.bar0"
+   end="switches.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xc0a0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="pcie_hard_ip_0.bar0"
+   end="push_buttons.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xc0c0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="pcie_hard_ip_0.bar0"
+   end="red_leds.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xc0e0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="pcie_hard_ip_0.bar0"
+   end="green_leds.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xc100" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="pcie_hard_ip_0.bar0"
+   end="fan_control.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xc120" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
    start="pcie_hard_ip_0.bar0"
    end="pcie_hard_ip_0.txs">
   <parameter name="arbitrationPriority" value="1" />
@@ -353,49 +686,119 @@
  </connection>
  <connection
    kind="clock"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_clk"
    end="pcie_hard_ip_0.cal_blk_clk" />
  <connection
    kind="clock"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_clk"
    end="inport.clk" />
  <connection
    kind="clock"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_clk"
    end="hexport.clk" />
  <connection
    kind="clock"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_clk"
-   end="pio_0.clk" />
+   end="hex_display.clk" />
  <connection
    kind="clock"
-   version="21.1"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_clk"
+   end="hex_display2.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_clk"
+   end="hex_display3.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_clk"
+   end="switches.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_clk"
+   end="push_buttons.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_clk"
+   end="red_leds.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_clk"
+   end="green_leds.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_clk"
+   end="fan_control.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_clk"
    end="pcie_hard_ip_0.fixedclk" />
  <connection
    kind="clock"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_clk"
    end="pcie_hard_ip_0.reconfig_gxbclk" />
  <connection
    kind="reset"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_reset"
    end="inport.reset" />
  <connection
    kind="reset"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_reset"
    end="hexport.reset" />
  <connection
    kind="reset"
-   version="21.1"
+   version="17.1"
    start="pcie_hard_ip_0.pcie_core_reset"
-   end="pio_0.reset" />
+   end="hex_display.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_reset"
+   end="hex_display2.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_reset"
+   end="hex_display3.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_reset"
+   end="switches.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_reset"
+   end="push_buttons.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_reset"
+   end="red_leds.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_reset"
+   end="green_leds.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="pcie_hard_ip_0.pcie_core_reset"
+   end="fan_control.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
