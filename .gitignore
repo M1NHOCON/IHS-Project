@@ -10,3 +10,5 @@ output_files/
 *.jdi
 *.pin
 *.qws
+# Configurações locais do VS Code
+.vscode/
