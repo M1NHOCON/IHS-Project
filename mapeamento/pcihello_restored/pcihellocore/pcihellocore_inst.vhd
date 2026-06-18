@@ -13,9 +13,9 @@
 			pcie_hard_ip_0_refclk_export            : in  std_logic                     := 'X';             -- export
 			pcie_hard_ip_0_rx_in_rx_datain_0        : in  std_logic                     := 'X';             -- rx_datain_0
 			pcie_hard_ip_0_tx_out_tx_dataout_0      : out std_logic;                                        -- tx_dataout_0
-			push_buttons_external_connection_export : out std_logic_vector(31 downto 0);                    -- export
+			push_buttons_external_connection_export : in  std_logic_vector(31 downto 0) := (others => 'X'); -- export
 			red_leds_external_connection_export     : out std_logic_vector(31 downto 0);                    -- export
-			switches_external_connection_export     : out std_logic_vector(31 downto 0)                     -- export
+			switches_external_connection_export     : in  std_logic_vector(31 downto 0) := (others => 'X')  -- export
 		);
 	end component pcihellocore;
 

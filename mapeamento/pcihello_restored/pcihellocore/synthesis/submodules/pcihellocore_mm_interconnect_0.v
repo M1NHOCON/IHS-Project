@@ -69,20 +69,14 @@ module pcihellocore_mm_interconnect_0 (
 		input  wire        pcie_hard_ip_0_txs_waitrequest,           //                                   .waitrequest
 		output wire        pcie_hard_ip_0_txs_chipselect,            //                                   .chipselect
 		output wire [1:0]  push_buttons_s1_address,                  //                    push_buttons_s1.address
-		output wire        push_buttons_s1_write,                    //                                   .write
 		input  wire [31:0] push_buttons_s1_readdata,                 //                                   .readdata
-		output wire [31:0] push_buttons_s1_writedata,                //                                   .writedata
-		output wire        push_buttons_s1_chipselect,               //                                   .chipselect
 		output wire [1:0]  red_leds_s1_address,                      //                        red_leds_s1.address
 		output wire        red_leds_s1_write,                        //                                   .write
 		input  wire [31:0] red_leds_s1_readdata,                     //                                   .readdata
 		output wire [31:0] red_leds_s1_writedata,                    //                                   .writedata
 		output wire        red_leds_s1_chipselect,                   //                                   .chipselect
 		output wire [1:0]  switches_s1_address,                      //                        switches_s1.address
-		output wire        switches_s1_write,                        //                                   .write
-		input  wire [31:0] switches_s1_readdata,                     //                                   .readdata
-		output wire [31:0] switches_s1_writedata,                    //                                   .writedata
-		output wire        switches_s1_chipselect                    //                                   .chipselect
+		input  wire [31:0] switches_s1_readdata                      //                                   .readdata
 	);
 
 	wire          pcie_hard_ip_0_bar0_translator_avalon_universal_master_0_waitrequest;   // pcie_hard_ip_0_bar0_agent:av_waitrequest -> pcie_hard_ip_0_bar0_translator:uav_waitrequest
@@ -1493,11 +1487,10 @@ module pcihellocore_mm_interconnect_0 (
 		.uav_lock               (switches_s1_agent_m0_lock),                //                         .lock
 		.uav_debugaccess        (switches_s1_agent_m0_debugaccess),         //                         .debugaccess
 		.av_address             (switches_s1_address),                      //      avalon_anti_slave_0.address
-		.av_write               (switches_s1_write),                        //                         .write
 		.av_readdata            (switches_s1_readdata),                     //                         .readdata
-		.av_writedata           (switches_s1_writedata),                    //                         .writedata
-		.av_chipselect          (switches_s1_chipselect),                   //                         .chipselect
+		.av_write               (),                                         //              (terminated)
 		.av_read                (),                                         //              (terminated)
+		.av_writedata           (),                                         //              (terminated)
 		.av_begintransfer       (),                                         //              (terminated)
 		.av_beginbursttransfer  (),                                         //              (terminated)
 		.av_burstcount          (),                                         //              (terminated)
@@ -1506,6 +1499,7 @@ module pcihellocore_mm_interconnect_0 (
 		.av_waitrequest         (1'b0),                                     //              (terminated)
 		.av_writebyteenable     (),                                         //              (terminated)
 		.av_lock                (),                                         //              (terminated)
+		.av_chipselect          (),                                         //              (terminated)
 		.av_clken               (),                                         //              (terminated)
 		.uav_clken              (1'b0),                                     //              (terminated)
 		.av_debugaccess         (),                                         //              (terminated)
@@ -1557,11 +1551,10 @@ module pcihellocore_mm_interconnect_0 (
 		.uav_lock               (push_buttons_s1_agent_m0_lock),            //                         .lock
 		.uav_debugaccess        (push_buttons_s1_agent_m0_debugaccess),     //                         .debugaccess
 		.av_address             (push_buttons_s1_address),                  //      avalon_anti_slave_0.address
-		.av_write               (push_buttons_s1_write),                    //                         .write
 		.av_readdata            (push_buttons_s1_readdata),                 //                         .readdata
-		.av_writedata           (push_buttons_s1_writedata),                //                         .writedata
-		.av_chipselect          (push_buttons_s1_chipselect),               //                         .chipselect
+		.av_write               (),                                         //              (terminated)
 		.av_read                (),                                         //              (terminated)
+		.av_writedata           (),                                         //              (terminated)
 		.av_begintransfer       (),                                         //              (terminated)
 		.av_beginbursttransfer  (),                                         //              (terminated)
 		.av_burstcount          (),                                         //              (terminated)
@@ -1570,6 +1563,7 @@ module pcihellocore_mm_interconnect_0 (
 		.av_waitrequest         (1'b0),                                     //              (terminated)
 		.av_writebyteenable     (),                                         //              (terminated)
 		.av_lock                (),                                         //              (terminated)
+		.av_chipselect          (),                                         //              (terminated)
 		.av_clken               (),                                         //              (terminated)
 		.uav_clken              (1'b0),                                     //              (terminated)
 		.av_debugaccess         (),                                         //              (terminated)

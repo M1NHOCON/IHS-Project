@@ -1,6 +1,6 @@
 Restore Archived Project report for pcihello
-Wed May 20 12:44:57 2026
-Quartus Prime Version 21.1.1 Build 850 06/23/2022 SJ Lite Edition
+Wed Jun 17 13:27:47 2026
+Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
 ---------------------
@@ -17,9 +17,9 @@ Quartus Prime Version 21.1.1 Build 850 06/23/2022 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2022  Intel Corporation. All rights reserved.
+Copyright (C) 2017  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and any partner logic 
+and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -29,15 +29,14 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details, at
-https://fpgasoftware.intel.com/eula.
+refer to the applicable agreement for further details.
 
 
 
 +-------------------------------------------------------------------------+
 ; Restore Archived Project Summary                                        ;
 +---------------------------------+---------------------------------------+
-; Restore Archived Project Status ; Successful - Wed May 20 12:44:57 2026 ;
+; Restore Archived Project Status ; Successful - Wed Jun 17 13:27:47 2026 ;
 ; Revision Name                   ; pcihello                              ;
 ; Top-level Entity Name           ; pcihello                              ;
 ; Family                          ; Cyclone IV GX                         ;
@@ -47,18 +46,25 @@ https://fpgasoftware.intel.com/eula.
 +-----------------------------------+
 ; Restore Archived Project Messages ;
 +-----------------------------------+
-Info: Successfully restored 'C:/Users/algm/Downloads/mapeamento-0.2-alunos/mapeamento/pcihello.qar' into the 'C:/Users/algm/Downloads/mapeamento-0.2-alunos/mapeamento/pcihello_restored/' directory
+Info: Successfully restored 'D:/projetos/IHS/IHS-Project/mapeamento/pcihello.qar' into the 'D:/projetos/IHS/IHS-Project/mapeamento/pcihello_restored/' directory
 Info: Generated report 'pcihello.restore.rpt'
-Info (23030): Evaluation of Tcl script c:/intelfpga_lite/21.1/quartus/common/tcl/apps/qpm/qar.tcl was successful
-Info: Quartus Prime Shell was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4854 megabytes
-    Info: Processing ended: Wed May 20 12:44:57 2026
-    Info: Elapsed time: 00:00:01
+Info (23030): Evaluation of Tcl script d:/programas/quartus/quartus/common/tcl/apps/qpm/qar.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 105 warnings
+    Info: Peak virtual memory: 4829 megabytes
+    Info: Processing ended: Wed Jun 17 13:27:47 2026
+    Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:01
 
 
++----------------+
+; Files Restored ;
++----------------+
+; File Name      ;
++----------------+
+
+
 +-----------------------------------------------------------------------------------------------------------+
-; Files Restored                                                                                            ;
+; Files Not Restored                                                                                        ;
 +-----------------------------------------------------------------------------------------------------------+
 ; File Name                                                                                                 ;
 +-----------------------------------------------------------------------------------------------------------+
@@ -69,6 +75,7 @@ Info: Quartus Prime Shell was successful. 0 errors, 2 warnings
 ; pcihello.cmp                                                                                              ;
 ; pcihello.qpf                                                                                              ;
 ; pcihello.qsf                                                                                              ;
+; pcihello.sdc                                                                                              ;
 ; pcihello.v                                                                                                ;
 ; pcihello_assignment_defaults.qdf                                                                          ;
 ; pcihellocore.cmp                                                                                          ;
@@ -165,14 +172,5 @@ Info: Quartus Prime Shell was successful. 0 errors, 2 warnings
 ; pcihellocore/synthesis/submodules/pcihellocore_rsp_xbar_demux.sv                                          ;
 ; pcihellocore/synthesis/submodules/pcihellocore_rsp_xbar_mux.sv                                            ;
 +-----------------------------------------------------------------------------------------------------------+
-
-
-+--------------------+
-; Files Not Restored ;
-+--------------------+
-; File Name          ;
-+--------------------+
-; pcihello.sdc       ;
-+--------------------+
 
 

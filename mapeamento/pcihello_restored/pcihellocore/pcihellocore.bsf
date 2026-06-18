@@ -66,6 +66,20 @@ refer to the applicable agreement for further details.
 		(line (pt 0 488)(pt 256 488)(line_width 1))
 	)
 	(port
+		(pt 0 568)
+		(input)
+		(text "push_buttons_external_connection_export[31..0]" (rect 0 0 191 12)(font "Arial" (font_size 8)))
+		(text "push_buttons_external_connection_export[31..0]" (rect 4 557 280 568)(font "Arial" (font_size 8)))
+		(line (pt 0 568)(pt 256 568)(line_width 3))
+	)
+	(port
+		(pt 0 648)
+		(input)
+		(text "switches_external_connection_export[31..0]" (rect 0 0 171 12)(font "Arial" (font_size 8)))
+		(text "switches_external_connection_export[31..0]" (rect 4 637 256 648)(font "Arial" (font_size 8)))
+		(line (pt 0 648)(pt 256 648)(line_width 3))
+	)
+	(port
 		(pt 0 72)
 		(output)
 		(text "fan_control_external_connection_export[31..0]" (rect 0 0 182 12)(font "Arial" (font_size 8)))
@@ -115,25 +129,11 @@ refer to the applicable agreement for further details.
 		(line (pt 0 528)(pt 256 528)(line_width 1))
 	)
 	(port
-		(pt 0 568)
-		(output)
-		(text "push_buttons_external_connection_export[31..0]" (rect 0 0 191 12)(font "Arial" (font_size 8)))
-		(text "push_buttons_external_connection_export[31..0]" (rect 4 557 280 568)(font "Arial" (font_size 8)))
-		(line (pt 0 568)(pt 256 568)(line_width 3))
-	)
-	(port
 		(pt 0 608)
 		(output)
 		(text "red_leds_external_connection_export[31..0]" (rect 0 0 172 12)(font "Arial" (font_size 8)))
 		(text "red_leds_external_connection_export[31..0]" (rect 4 597 256 608)(font "Arial" (font_size 8)))
 		(line (pt 0 608)(pt 256 608)(line_width 3))
-	)
-	(port
-		(pt 0 648)
-		(output)
-		(text "switches_external_connection_export[31..0]" (rect 0 0 171 12)(font "Arial" (font_size 8)))
-		(text "switches_external_connection_export[31..0]" (rect 4 637 256 648)(font "Arial" (font_size 8)))
-		(line (pt 0 648)(pt 256 648)(line_width 3))
 	)
 	(drawing
 		(text "fan_control_external_connection" (rect 68 43 322 99)(font "Arial" (color 128 0 0)(font_size 9)))

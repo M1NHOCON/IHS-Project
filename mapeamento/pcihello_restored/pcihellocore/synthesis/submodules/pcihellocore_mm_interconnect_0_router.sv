@@ -247,13 +247,13 @@ module pcihellocore_mm_interconnect_0_router
     end
 
     // ( 0xc0a0 .. 0xc0b0 )
-    if ( {address[RG:PAD7],{PAD7{1'b0}}} == 16'hc0a0   ) begin
+    if ( {address[RG:PAD7],{PAD7{1'b0}}} == 16'hc0a0  && read_transaction  ) begin
             src_channel = 12'b000001000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 11;
     end
 
     // ( 0xc0c0 .. 0xc0d0 )
-    if ( {address[RG:PAD8],{PAD8{1'b0}}} == 16'hc0c0   ) begin
+    if ( {address[RG:PAD8],{PAD8{1'b0}}} == 16'hc0c0  && read_transaction  ) begin
             src_channel = 12'b000010000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
     end

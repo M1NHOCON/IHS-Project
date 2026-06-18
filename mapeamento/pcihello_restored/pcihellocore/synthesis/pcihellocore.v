@@ -17,9 +17,9 @@ module pcihellocore (
 		input  wire        pcie_hard_ip_0_refclk_export,            //            pcie_hard_ip_0_refclk.export
 		input  wire        pcie_hard_ip_0_rx_in_rx_datain_0,        //             pcie_hard_ip_0_rx_in.rx_datain_0
 		output wire        pcie_hard_ip_0_tx_out_tx_dataout_0,      //            pcie_hard_ip_0_tx_out.tx_dataout_0
-		output wire [31:0] push_buttons_external_connection_export, // push_buttons_external_connection.export
+		input  wire [31:0] push_buttons_external_connection_export, // push_buttons_external_connection.export
 		output wire [31:0] red_leds_external_connection_export,     //     red_leds_external_connection.export
-		output wire [31:0] switches_external_connection_export      //     switches_external_connection.export
+		input  wire [31:0] switches_external_connection_export      //     switches_external_connection.export
 	);
 
 	wire         pcie_hard_ip_0_pcie_core_clk_clk;                   // pcie_hard_ip_0:pcie_core_clk_clk -> [fan_control:clk, green_leds:clk, hex_display2:clk, hex_display3:clk, hex_display:clk, hexport:clk, inport:clk, irq_mapper:clk, mm_interconnect_0:pcie_hard_ip_0_pcie_core_clk_clk, pcie_hard_ip_0:cal_blk_clk_clk, pcie_hard_ip_0:fixedclk_clk, pcie_hard_ip_0:reconfig_gxbclk_clk, push_buttons:clk, red_leds:clk, rst_controller:clk, switches:clk]
@@ -62,16 +62,10 @@ module pcihellocore (
 	wire   [1:0] mm_interconnect_0_hex_display3_s1_address;          // mm_interconnect_0:hex_display3_s1_address -> hex_display3:address
 	wire         mm_interconnect_0_hex_display3_s1_write;            // mm_interconnect_0:hex_display3_s1_write -> hex_display3:write_n
 	wire  [31:0] mm_interconnect_0_hex_display3_s1_writedata;        // mm_interconnect_0:hex_display3_s1_writedata -> hex_display3:writedata
-	wire         mm_interconnect_0_switches_s1_chipselect;           // mm_interconnect_0:switches_s1_chipselect -> switches:chipselect
 	wire  [31:0] mm_interconnect_0_switches_s1_readdata;             // switches:readdata -> mm_interconnect_0:switches_s1_readdata
 	wire   [1:0] mm_interconnect_0_switches_s1_address;              // mm_interconnect_0:switches_s1_address -> switches:address
-	wire         mm_interconnect_0_switches_s1_write;                // mm_interconnect_0:switches_s1_write -> switches:write_n
-	wire  [31:0] mm_interconnect_0_switches_s1_writedata;            // mm_interconnect_0:switches_s1_writedata -> switches:writedata
-	wire         mm_interconnect_0_push_buttons_s1_chipselect;       // mm_interconnect_0:push_buttons_s1_chipselect -> push_buttons:chipselect
 	wire  [31:0] mm_interconnect_0_push_buttons_s1_readdata;         // push_buttons:readdata -> mm_interconnect_0:push_buttons_s1_readdata
 	wire   [1:0] mm_interconnect_0_push_buttons_s1_address;          // mm_interconnect_0:push_buttons_s1_address -> push_buttons:address
-	wire         mm_interconnect_0_push_buttons_s1_write;            // mm_interconnect_0:push_buttons_s1_write -> push_buttons:write_n
-	wire  [31:0] mm_interconnect_0_push_buttons_s1_writedata;        // mm_interconnect_0:push_buttons_s1_writedata -> push_buttons:writedata
 	wire         mm_interconnect_0_red_leds_s1_chipselect;           // mm_interconnect_0:red_leds_s1_chipselect -> red_leds:chipselect
 	wire  [31:0] mm_interconnect_0_red_leds_s1_readdata;             // red_leds:readdata -> mm_interconnect_0:red_leds_s1_readdata
 	wire   [1:0] mm_interconnect_0_red_leds_s1_address;              // mm_interconnect_0:red_leds_s1_address -> red_leds:address
@@ -394,15 +388,12 @@ module pcihellocore (
 		.fixedclk_clk                       (pcie_hard_ip_0_pcie_core_clk_clk)                    //           fixedclk.clk
 	);
 
-	pcihellocore_fan_control push_buttons (
-		.clk        (pcie_hard_ip_0_pcie_core_clk_clk),             //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),              //               reset.reset_n
-		.address    (mm_interconnect_0_push_buttons_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_push_buttons_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_push_buttons_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_push_buttons_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_push_buttons_s1_readdata),   //                    .readdata
-		.out_port   (push_buttons_external_connection_export)       // external_connection.export
+	pcihellocore_push_buttons push_buttons (
+		.clk      (pcie_hard_ip_0_pcie_core_clk_clk),           //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),            //               reset.reset_n
+		.address  (mm_interconnect_0_push_buttons_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_push_buttons_s1_readdata), //                    .readdata
+		.in_port  (push_buttons_external_connection_export)     // external_connection.export
 	);
 
 	pcihellocore_fan_control red_leds (
@@ -416,15 +407,12 @@ module pcihellocore (
 		.out_port   (red_leds_external_connection_export)       // external_connection.export
 	);
 
-	pcihellocore_fan_control switches (
-		.clk        (pcie_hard_ip_0_pcie_core_clk_clk),         //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),          //               reset.reset_n
-		.address    (mm_interconnect_0_switches_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_switches_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_switches_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_switches_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_switches_s1_readdata),   //                    .readdata
-		.out_port   (switches_external_connection_export)       // external_connection.export
+	pcihellocore_push_buttons switches (
+		.clk      (pcie_hard_ip_0_pcie_core_clk_clk),       //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),        //               reset.reset_n
+		.address  (mm_interconnect_0_switches_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_switches_s1_readdata), //                    .readdata
+		.in_port  (switches_external_connection_export)     // external_connection.export
 	);
 
 	pcihellocore_mm_interconnect_0 mm_interconnect_0 (
@@ -490,20 +478,14 @@ module pcihellocore (
 		.pcie_hard_ip_0_txs_waitrequest           (mm_interconnect_0_pcie_hard_ip_0_txs_waitrequest),   //                                   .waitrequest
 		.pcie_hard_ip_0_txs_chipselect            (mm_interconnect_0_pcie_hard_ip_0_txs_chipselect),    //                                   .chipselect
 		.push_buttons_s1_address                  (mm_interconnect_0_push_buttons_s1_address),          //                    push_buttons_s1.address
-		.push_buttons_s1_write                    (mm_interconnect_0_push_buttons_s1_write),            //                                   .write
 		.push_buttons_s1_readdata                 (mm_interconnect_0_push_buttons_s1_readdata),         //                                   .readdata
-		.push_buttons_s1_writedata                (mm_interconnect_0_push_buttons_s1_writedata),        //                                   .writedata
-		.push_buttons_s1_chipselect               (mm_interconnect_0_push_buttons_s1_chipselect),       //                                   .chipselect
 		.red_leds_s1_address                      (mm_interconnect_0_red_leds_s1_address),              //                        red_leds_s1.address
 		.red_leds_s1_write                        (mm_interconnect_0_red_leds_s1_write),                //                                   .write
 		.red_leds_s1_readdata                     (mm_interconnect_0_red_leds_s1_readdata),             //                                   .readdata
 		.red_leds_s1_writedata                    (mm_interconnect_0_red_leds_s1_writedata),            //                                   .writedata
 		.red_leds_s1_chipselect                   (mm_interconnect_0_red_leds_s1_chipselect),           //                                   .chipselect
 		.switches_s1_address                      (mm_interconnect_0_switches_s1_address),              //                        switches_s1.address
-		.switches_s1_write                        (mm_interconnect_0_switches_s1_write),                //                                   .write
-		.switches_s1_readdata                     (mm_interconnect_0_switches_s1_readdata),             //                                   .readdata
-		.switches_s1_writedata                    (mm_interconnect_0_switches_s1_writedata),            //                                   .writedata
-		.switches_s1_chipselect                   (mm_interconnect_0_switches_s1_chipselect)            //                                   .chipselect
+		.switches_s1_readdata                     (mm_interconnect_0_switches_s1_readdata)              //                                   .readdata
 	);
 
 	pcihellocore_irq_mapper irq_mapper (
