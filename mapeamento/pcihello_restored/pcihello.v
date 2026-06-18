@@ -144,15 +144,22 @@ assign HEX6 = hex_bus3[6:0];
 assign HEX7 = hex_bus3[14:8];
 
 //=======================================================
-// TESTE DIRETO: SW controla LEDR
+// Periféricos não utilizados pela aplicação
 //=======================================================
-assign sw_bus = SW[17:0];
-assign keys_bus = ~KEY[3:0];
 
-assign LEDR = red_bus[17:0] ;
+// Aterra a entrada do Qsys para evitar lixo lógico
+assign sw_bus = 18'd0; 
+assign keys_bus = 4'd0;
+
+// LEDR[0] testando direto a chave SW[0] para debug físico
+assign LEDR[0] = SW[0];
+
+// Desliga o resto dos LEDs
+assign LEDR[17:1] = 17'd0;
 
 // LEDG continua vindo do QSYS
-assign LEDG = green_bus[3:0];
+// Conecta os 9 primeiros bits do barramento direto nos 9 LEDs verdes
+assign LEDG = green_bus[8:0];
 
 // Como só o canal 0 do PCIe está sendo usado, deixa o canal 1 em nível baixo
 assign PCIE_TX_P[1] = 1'b0;
