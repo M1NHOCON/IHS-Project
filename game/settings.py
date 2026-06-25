@@ -61,16 +61,21 @@ SW_GIVE_LINE = 0
 # ----------------------------------------------------------------------------
 # Tuning de jogabilidade
 # ----------------------------------------------------------------------------
-AIM_MIN_DEG = 20.0          # mira: limites do angulo de lancamento
-AIM_MAX_DEG = 160.0
-AIM_SPEED   = 60.0          # graus/seg ao segurar KEY[0]/KEY[1]
+# Mira: um marcador desliza na SUPERFICIE da agua (mirar onde a linha cai).
+# Sempre fica a direita do barco e dentro da tela -> nunca cai atras/fora.
+CAST_NEAR    = 150.0        # px a direita do barco (alvo mais proximo)
+CAST_MARGIN  = 60.0         # margem ate a borda direita (alvo mais distante)
+AIM_SPEED_PX = 260.0        # velocidade do marcador (px/seg) ao segurar KEY0/KEY1
 
-POWER_SPEED = 1.6           # velocidade do oscilador de forca (ciclos/seg)
+# Forca (timing): oscila durante a mira. Quanto mais cheia no momento do
+# lance, mais perto do alvo mirado a isca chega (entre metade e alcance total).
+POWER_SPEED  = 1.6          # velocidade do oscilador de forca (ciclos/seg)
+CAST_MIN_FRACTION = 0.5     # alcance minimo (forca=0) como fracao do alvo
 
 WAIT_MIN = 1.5              # espera (seg) ate o peixe morder
 WAIT_MAX = 5.0
 
-HOOK_WINDOW = 0.9           # janela (seg) para fisgar apos a mordida
+HOOK_WINDOW = 1.1           # janela (seg) para fisgar apos a mordida
 
 # Briga (FIGHTING)
 REEL_GAIN      = 0.06       # progresso ganho por "click" de manivela

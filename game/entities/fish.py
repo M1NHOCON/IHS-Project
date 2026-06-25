@@ -1,8 +1,12 @@
 """
-Peixe: tamanho, forca e tendencia de "correr".
+Peixe (captura): usa os sprites estaticos da pasta Catch.
+
+  sprite = chave em ui/sprites.CATCH_KEYS ("1".."8", "Box", "Barrel", "Chest")
+  kind   = "fish" (peixe), "junk" (lixo) ou "treasure" (tesouro)
 
 Peixe grande da mais pontos, mas corre mais (sobe a tensao) e e mais facil
-de arrebentar a linha -> exige controle fino.
+de arrebentar a linha -> exige controle fino. Lixo quase nao luta e vale
+pouco; o bau e raro e vale muito.
 """
 
 import random
@@ -12,33 +16,37 @@ from dataclasses import dataclass
 @dataclass
 class Fish:
     name: str
-    size: int          # 1..9  (tambem vira pontos)
-    color: tuple
-    run_chance: float  # prob/seg de iniciar uma corrida
-    run_power: float   # quanto de tensao a corrida adiciona por seg
-    reel_factor: float # multiplicador de progresso por manivela (peixe pesado puxa menos)
+    size: int           # tambem vira pontos
+    sprite: str         # chave da imagem na pasta Catch
+    run_chance: float
+    run_power: float
+    reel_factor: float
+    kind: str = "fish"
 
     @property
     def points(self) -> int:
         return self.size
 
 
-# Catalogo. Pesos diferentes de aparicao: peixe grande e raro.
+# name,            size, sprite,  run_chance, run_power, reel_factor, kind,       peso
 _CATALOG = [
-    # name,        size, color,            run_chance, run_power, reel_factor, peso
-    ("Lambari",      1, (180, 200, 210), 0.20, 0.20, 1.40, 30),
-    ("Tilapia",      3, (150, 180, 120), 0.35, 0.35, 1.10, 28),
-    ("Tucunare",     5, (90, 170, 90),   0.50, 0.55, 0.90, 22),
-    ("Dourado",      7, (235, 200, 70),  0.65, 0.75, 0.75, 14),
-    ("Pirarucu",     9, (120, 90, 80),   0.80, 0.95, 0.60, 6),
+    ("Lambari",       1, "1",  0.15, 0.18, 1.50, "fish",     26),
+    ("Sardinha",      2, "2",  0.22, 0.25, 1.30, "fish",     22),
+    ("Piaba",         2, "8",  0.25, 0.28, 1.30, "fish",     18),
+    ("Tilapia",       3, "3",  0.35, 0.40, 1.10, "fish",     16),
+    ("Tucunare",      4, "4",  0.50, 0.55, 0.95, "fish",     12),
+    ("Traira",        5, "7",  0.60, 0.62, 0.85, "fish",      9),
+    ("Dourado",       7, "5",  0.75, 0.80, 0.70, "fish",      5),
+    ("Pirarucu",      9, "6",  0.88, 0.95, 0.60, "fish",      3),
+    ("Caixa velha",   0, "Box",    0.10, 0.15, 1.70, "junk",     5),
+    ("Barril",        1, "Barrel", 0.12, 0.18, 1.60, "junk",     4),
+    ("Bau do tesouro", 15, "Chest", 0.70, 0.70, 0.70, "treasure", 2),
 ]
 
 
 def random_fish() -> Fish:
-    names = [c[0] for c in _CATALOG]
-    weights = [c[6] for c in _CATALOG]
-    chosen = random.choices(_CATALOG, weights=weights, k=1)[0]
-    name, size, color, run_chance, run_power, reel_factor, _ = chosen
-    return Fish(name=name, size=size, color=color,
-                run_chance=run_chance, run_power=run_power,
-                reel_factor=reel_factor)
+    weights = [c[7] for c in _CATALOG]
+    name, size, sprite, rc, rp, rf, kind, _ = random.choices(
+        _CATALOG, weights=weights, k=1)[0]
+    return Fish(name=name, size=size, sprite=sprite,
+                run_chance=rc, run_power=rp, reel_factor=rf, kind=kind)

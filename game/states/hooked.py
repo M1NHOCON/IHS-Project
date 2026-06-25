@@ -7,7 +7,7 @@ import audio
 import settings
 from entities.fish import random_fish
 from states.base import State
-from ui import hud, leds
+from ui import hud, leds, scene, sprites
 
 
 class HookedState(State):
@@ -15,6 +15,7 @@ class HookedState(State):
         super().__init__(game)
         self.t = 0.0
         self._blink = 0.0
+        self.fisher = sprites.fisher_anim("hook", fps=12, loop=False)
 
     def enter(self):
         audio.play("hook")
@@ -22,9 +23,10 @@ class HookedState(State):
     def update(self, dt, inp):
         self.t += dt
         self._blink += dt
+        if self.fisher:
+            self.fisher.update(dt)
 
         if inp.key_pressed(settings.KEY_ACTION):
-            # fisgou a tempo -> sorteia o peixe e vai para a briga
             self.game.fish = random_fish()
             self.game.tension = 0.2
             self.game.progress = 0.0
@@ -32,7 +34,6 @@ class HookedState(State):
             return FightingState(self.game)
 
         if self.t >= settings.HOOK_WINDOW:
-            # demorou: peixe escapou
             self.game.last_result = "lose"
             self.game.last_reason = "Demorou para fisgar!"
             self.game.last_fish = None
@@ -41,18 +42,21 @@ class HookedState(State):
         return self
 
     def draw(self, screen):
-        hud.draw_scene(screen)
-        hud.draw_boat(screen, self.game.boat_x)
-        hud.draw_text_center(screen, "FISGOU!  APERTE KEY[3]!", 220, size=48,
+        scene.draw_world(screen)
+        scene.draw_boat(screen)
+        if self.game.land_point:
+            scene.draw_line(screen, self.game.rod_origin, self.game.land_point)
+        scene.draw_fisherman(screen, self.fisher)
+        hud.draw_scoreboard(screen, self.game)
+
+        hud.draw_text_center(screen, "FISGOU!  APERTE KEY[3]!", 150, size=46,
                              color=settings.C_RED)
-        # barra do tempo restante
         frac = 1.0 - (self.t / settings.HOOK_WINDOW)
-        hud.draw_bar(screen, 250, 300, 300, 26, frac, settings.C_GREEN,
+        hud.draw_panel(screen, 240, 250, 320, 60)
+        hud.draw_bar(screen, 256, 278, 288, 22, frac, settings.C_GREEN,
                      label="Janela para fisgar")
 
     def output(self):
-        # flash forte: pisca todos os LEDR rapidamente
         on = int(self._blink * 16) % 2 == 0
-        out = leds.make_output(blink_red=on, green_bits=0b1111,
-                               score=self.game.score)
-        return out
+        return leds.make_output(blink_red=on, green_bits=0b1111,
+                                score=self.game.score)

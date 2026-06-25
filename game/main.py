@@ -28,6 +28,7 @@ from game import Game
 from hardware.factory import make_backend
 from inputs import InputState
 from states.menu import MenuState
+from ui import sprites
 
 
 def parse_args():
@@ -47,6 +48,9 @@ def main():
     screen = pygame.display.set_mode((settings.SCREEN_W, settings.SCREEN_H))
     pygame.display.set_caption(settings.TITLE)
     clock = pygame.time.Clock()
+
+    # carrega sprites agora que o display existe (lazy-safe)
+    sprites.init()
 
     hw, using_real = make_backend(mode)
     print("[hardware] backend: %s" % ("FPGA real" if using_real else "teclado (sim)"))

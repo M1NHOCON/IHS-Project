@@ -1,4 +1,4 @@
-"""CASTING: anima a isca saindo da vara ate cair na agua (angulo + forca)."""
+"""CASTING: anima a isca saindo da vara ate o alvo escolhido na mira."""
 
 import math
 
@@ -7,7 +7,7 @@ import pygame
 import audio
 import settings
 from states.base import State
-from ui import hud, leds
+from ui import hud, leds, scene, sprites
 
 
 class CastingState(State):
@@ -16,43 +16,43 @@ class CastingState(State):
     def __init__(self, game):
         super().__init__(game)
         self.t = 0.0
-        g = game
-        ox, oy = g.rod_origin
-        rad = math.radians(g.aim_angle)
-        # alcance proporcional a forca
-        reach = 120 + g.power * 360
-        self.start = (ox, oy)
-        self.target = (ox + reach * math.cos(rad), hud.WATER_Y + 8)
+        self.fisher = sprites.fisher_anim("hook", fps=9, loop=False)
+        self.start = game.rod_origin
+        # alvo definido na mira; fallback seguro caso falte
+        self.target = game.land_target or (scene.BOAT_X + 320, scene.WATER_Y + 8)
+        # arco mais alto quando a forca foi maior
+        self.arc = 60 + game.power * 70
 
     def enter(self):
         audio.play("splash")
 
     def update(self, dt, inp):
         self.t += dt
+        if self.fisher:
+            self.fisher.update(dt)
         if self.t >= self.DURATION:
-            # fixa onde caiu e vai esperar
             self.game.land_point = self.target
             from states.waiting import WaitingState
             return WaitingState(self.game)
         return self
 
     def _bait_pos(self):
-        # interpolacao com um arco (parabola simples)
         k = self.t / self.DURATION
         x = self.start[0] + (self.target[0] - self.start[0]) * k
         y = self.start[1] + (self.target[1] - self.start[1]) * k
-        y -= math.sin(k * math.pi) * 80   # altura do arco
+        y -= math.sin(k * math.pi) * self.arc
         return x, y
 
     def draw(self, screen):
         g = self.game
-        hud.draw_scene(screen)
-        hud.draw_boat(screen, g.boat_x)
+        scene.draw_world(screen)
+        scene.draw_boat(screen)
+        scene.draw_fisherman(screen, self.fisher)
+        hud.draw_scoreboard(screen, g)
         bx, by = self._bait_pos()
-        # linha da vara ate a isca
-        pygame.draw.line(screen, settings.C_WHITE, g.rod_origin, (bx, by), 1)
+        scene.draw_line(screen, g.rod_origin, (bx, by))
         pygame.draw.circle(screen, settings.C_RED, (int(bx), int(by)), 5)
-        hud.draw_text_center(screen, "Lancando...", 250, size=26)
+        hud.draw_text_center(screen, "Lancando...", 120, size=28)
 
     def output(self):
         return leds.make_output(red_value=self.game.power,
