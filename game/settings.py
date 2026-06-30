@@ -28,14 +28,13 @@ DEVICE_PATH = "/dev/de2i150_dev"
 # pcihellocore.sopcinfo. DEVEM ser confirmados na placa com game/hwtest.py
 # antes de confiar 100%. No modo --sim nada disso e usado.
 # ----------------------------------------------------------------------------
-OFF_BUTTONS    = 0xC080     # KEY[3:0]  (CONFIRMADO) - ja invertido no HW (1 = pressionado)
-OFF_RED_LEDS   = 0xC0A0     # LEDR[17:0] (CONFIRMADO)
-OFF_SWITCHES   = 0xC060     # SW[17:0]   (CONFIRMAR)
-OFF_GREEN_LEDS = 0xC0C0     # LEDG[3:0]  (CONFIRMAR)
-OFF_HEX_0_3    = 0xC000     # HEX0..HEX3 empacotados (CONFIRMAR)
-OFF_HEX_4_5    = 0xC040     # HEX4..HEX5 empacotados (CONFIRMAR)
-OFF_HEX_6_7    = 0xC020     # HEX6..HEX7 empacotados (CONFIRMAR)
-
+OFF_BUTTONS    = 0xC0C0     # KEY[3:0]  - ja invertido no HW (1 = pressionado)
+OFF_RED_LEDS   = 0xC0e0     # LEDR[17:0]
+OFF_SWITCHES   = 0xC0a0     # SW[17:0] 
+OFF_GREEN_LEDS = 0xC100     # LEDG[7:0]
+OFF_HEX_0_3    = 0xC040     # HEX0..HEX3 empacotados
+OFF_HEX_4_5    = 0xC060     # HEX4..HEX5 empacotados
+OFF_HEX_6_7    = 0xC080     # HEX6..HEX7 empacotados
 # Faixa varrida pelo hwtest.py ao procurar os offsets.
 HWTEST_SWEEP = [0xC000, 0xC020, 0xC040, 0xC060, 0xC080,
                 0xC0A0, 0xC0C0, 0xC0E0, 0xC100, 0xC120]
