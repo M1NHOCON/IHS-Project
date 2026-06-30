@@ -144,17 +144,23 @@ assign HEX6 = hex_bus3[6:0];
 assign HEX7 = hex_bus3[14:8];
 
 //=======================================================
-// TESTE DIRETO: SW controla LEDR
+// Mapeamento para controle via Driver e App (Qsys)
 //=======================================================
+
+// Entradas: Envia o status das chaves e botões físicos para o App (via Qsys)
 assign sw_bus = SW[17:0];
-assign keys_bus = ~KEY[3:0];
+assign keys_bus = ~KEY[3:0]; 
 
-assign LEDR = red_bus[17:0] ;
+// Saídas: Recebe os comandos do App (via Qsys) e acende os LEDs físicos
+assign LEDR = red_bus[17:0];
+assign LEDG = green_bus[7:0]; // Preenchido com zeros para evitar warnings
 
-// LEDG continua vindo do QSYS
-assign LEDG = green_bus[3:0];
+//=======================================================
+// Configurações de hardware da placa
+//=======================================================
 
-// Como só o canal 0 do PCIe está sendo usado, deixa o canal 1 em nível baixo
+// Aterra o canal 1 do PCIe, pois apenas o canal 0 está sendo usado
 assign PCIE_TX_P[1] = 1'b0;
+
 
 endmodule
