@@ -38,7 +38,8 @@ static ssize_t de2i150_read(struct file *file, char __user *user_buf, size_t siz
     uint32_t valor_lido;
     
     // Lê 32 bits do endereço físico base + offset
-    valor_lido = ioread32(de2i150_mem + *offset);
+    valor_lido = ioread32((uint8_t __iomem *)de2i150_mem + *offset);
+
     
     // Copia o valor lido do Kernel para a variável lá na aplicação do usuário
     if (copy_to_user(user_buf, &valor_lido, sizeof(uint32_t))) {
@@ -58,7 +59,7 @@ static ssize_t de2i150_write(struct file *file, const char __user *user_buf, siz
     }
 
     // Escreve os 32 bits no endereço físico base + offset
-    iowrite32(valor_escrito, de2i150_mem + *offset);
+    iowrite32(valor_escrito, (uint8_t __iomem *)de2i150_mem + *offset);
     
     return sizeof(uint32_t); // Retorna quantos bytes foram escritos
 }
