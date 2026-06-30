@@ -10,7 +10,8 @@ O objetivo deste projeto é criar uma aplicação full-stack (Hardware + Kernel 
 
 ## 👥 Equipe
 * **Paulo Messias do Nascimento** - [@pmn12](https://github.com/pmn12)
-* **[Nome do Membro 2]** - [@Usuario2](https://github.com/Usuario2)
+* **Vinicius dos Santos Felix** - [@M1NHOCON](https://github.com/M1NHOCON)
+* **[Nome do Membro 3]** - [@Usuario2](https://github.com/Usuario2)
 ---
 
 ## 🎯 Tema da Aplicação
