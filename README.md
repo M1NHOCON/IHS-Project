@@ -29,7 +29,7 @@ Disponibilizar um fluxo completo de comunicacao entre o Intel Atom da DE2i-150 e
 - Paulo Messias do Nascimento - [@pmn12](https://github.com/pmn12)
 - Vinicius dos Santos Felix - [@M1NHOCON](https://github.com/M1NHOCON)
 - Antonio Lins Gomes de Mattos - [@linsgm](https://github.com/linsgm)
-- [Membro 4 do grupo] - [@](https://github.com/Usuario)
+- Yago Kauan Mendes Silva - 
 - [Membro 5 do grupo] - [@](https://github.com/Usuario)
 ## Estrutura atual do repositorio
 
