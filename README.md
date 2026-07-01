@@ -4,7 +4,7 @@
 [![Department](https://img.shields.io/badge/Department-CIn-red.svg)](https://www.cin.ufpe.br/)
 [![Board](https://img.shields.io/badge/Board-Terasic_DE2i--150-lightgrey.svg)](https://www.terasic.com.tw/)
 
-Projeto final da disciplina de Introducao ao Hardware e Software (IHS), com foco em integracao de camadas:
+Projeto final da disciplina de Interface Hardware-Software (IHS), com foco em integracao de camadas:
 
 - Hardware (FPGA Cyclone IV na DE2i-150),
 - Driver Linux PCIe em kernel space (character device),
