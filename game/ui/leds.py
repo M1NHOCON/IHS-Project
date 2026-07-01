@@ -8,12 +8,12 @@ import settings
 
 
 def bar_mask(value: float, width: int = 18) -> int:
-    """value 0..1 -> barra de LEDs acesa da direita para a esquerda."""
+    """value 0..1 -> barra de LEDs acesa da esquerda para a direita."""
     value = max(0.0, min(1.0, value))
     n = int(round(value * width))
     if n <= 0:
         return 0
-    return (1 << n) - 1
+    return ((1 << n) - 1) << (width - n)
 
 
 def make_output(red_value: float = 0.0,
